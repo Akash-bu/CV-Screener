@@ -21,10 +21,14 @@
       <hr>
       <h6>Feedback:</h6>
       <ul>
-        {% for tip in feedback %}
-          <li>{{ tip }}</li>
-        {% endfor %}
+        {% if verdict == "fail" %}
+          {% for tip in feedback %}
+            <li>{{ tip }}</li>
+          {% endfor %}
       </ul>
+      {% else %}
+        <p>{{ feedback }}</p>
+      {% endif %}
       <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">Screen Another CV</a>
     </div>
   </div>

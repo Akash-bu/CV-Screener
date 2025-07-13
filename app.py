@@ -37,7 +37,8 @@ def index():
         phone = request.form.get('phone')
         file = request.files.get('resume')
 
-        if not (name and phone and email and allowed_file(file.filename)):
+        # if not (name and phone and email and allowed_file(file.filename)):
+        if not (name and phone and email):
             error = 'Please fill in all the fields and upload only a PDF file'
             return render_template('index.html', error=error)
         
@@ -50,7 +51,8 @@ def index():
         system_prompt = (
             'You are an expert recruiter screening resumes for AI positions. ' 
             'Given the CV text, analyze the text to find key words related to AI in skills and respond with a JSON object with keys: "verdict" (either "Pass" or "Fail") ' 
-            'and "feedback" (an array of improvement suggestions).'  
+            'and "feedback" (an array of improvement suggestions) only in case the verdict is "Fail".'  
+            'If the verdict is "Pass" send a congratuatory message as a feedback and ask them to apply for the open position. (make sure to write a clean paragraph)'
         )
 
         messages = [
